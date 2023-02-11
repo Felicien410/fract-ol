@@ -2,19 +2,26 @@
 
 int	main(void)
 {
-	t_data	img;
 	t_vars	vars;
 
 	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "Hello world!");
-	img.img = mlx_new_image(vars.mlx, 1920, 1080);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
-	printf("%s-->",img.addr);
-	put_squarre (&img);
-	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
+	vars.win = mlx_new_window(vars.mlx, 500, 500, "Hello world!");
+	vars.img = mlx_new_image(vars.mlx, 500, 500);
+	vars.addr = (int *)
+		mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length,
+								&vars.endian);
+	printf("->%d\n",vars.bits_per_pixel);
+	printf("->%d\n",vars.line_length);
+	printf("->%d\n",vars.endian);
+	// vars.addr[480 + 2] = 0x00FF0000 * 3;
+	// vars.addr[3400] = 0x00FF0000 ;
+
+
+	// put_squarre (&vars);
+	ft_julia(&vars);
+	mlx_put_image_to_window(vars.mlx, vars.win, vars.img, 0, 0);
 	mlx_hook(vars.win,2, 0, key_press, &vars);
-	mlx_mouse_hook(vars.win,mouse, &vars);
+	mlx_hook(vars.win, 4, 0, &mouse, &vars);
 	mlx_loop(vars.mlx);
 }
 

@@ -1,26 +1,80 @@
 #include"Includes/fractol.h"
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+// void put_squarre (t_vars *img)
+// {
+//     int x = 30;
+//     int y = 30;
+
+//     while (x < 50)
+//     {
+//         while (y < 50)
+//         {
+//             	img->addr[y * 500 + x] = 0x00FF0000;
+//             y++;
+//         }
+//         y = 20;
+//         x ++;
+// }
+// }
+
+
+
+int	itter(double cr, double ci, double max, t_vars *fra)
+{
+	double	zr;
+	double	zi;
+	double	tmp;
+	int		i;
+
+	zr = cr;
+	zi = ci;
+	i = 0;
+	while (i <= max && (zr * zr + zi * zi) <= 4)
+	{
+		tmp = zr;
+		zr = zr * zr - zi * zi - fra->zoom.corx;
+		zi = 2 * zi * tmp + fra->zoom.cory;
+		i++;
+	}
+	return (i);
 }
 
-void put_squarre (t_data *img)
+void	draw_julia(t_vars *fractol)
 {
-    int x = 0;
-    int y = 0;
+	int		x;
+	int		y;
+	int		i;
 
-    while (x < 50)
-    {
-        while (y < 50)
-        {
-            my_mlx_pixel_put(img, y, x, 0x000000FF);
-            y++;
-        }
-        y = 0;
-        x ++;
+	x = 0;
+	i = 0;
+	while (x < 500)
+	{
+		fractol->cr = fractol->minr + (fractol->maxr - fractol->minr) * x / 500;
+		y = 0;
+		while (y < 500)
+		{
+			fractol->ci = fractol->mini + (fractol->maxi - fractol->mini)
+				* y / 500;
+			i = itter(fractol->cr, fractol->ci, fractol->itter, fractol);
+			if (i == fractol->itter)
+				fractol->addr[(y * 500) + x] = 0x000000;
+			else
+				fractol->addr[(y * 500) + x] = 0xff0000 * i;
+			y++;
+		}
+		x++;
+	}
 }
+
+void	ft_julia(t_vars *data)
+{
+	data->zoom.corx = 0.285;
+	data->zoom.cory = 0.1;
+	data->minr = -2;
+	data->mini = -2;
+	data->maxr = 2;
+	data->maxi = 2;
+	data->itter = 250;
+	draw_julia(data);
 }
