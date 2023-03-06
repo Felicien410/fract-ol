@@ -1,6 +1,7 @@
 #include"Includes/fractol.h"
 #include"Includes/buttons.h"
 
+
 int	main(void)
 {
 	t_vars	vars;
