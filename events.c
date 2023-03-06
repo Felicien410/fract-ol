@@ -29,19 +29,43 @@ int	mouse(int keycode, t_vars *vars)
 	return (0);
 }
 
+int	zoom(int keycode, int x, int y, t_vars *fractol)
+{
+	double	im_range;
+	double	re_range;
+
+	re_range = fractol->minr
+		+ ((double)x * (fractol->maxr - fractol->minr)) / WIDTH;
+	im_range = fractol->mini
+		+ ((double)y * (fractol->maxi - fractol->mini)) / HEIGHT;
+	if (keycode == MOUSE_UP)
+	{
+		fractol->itter += 2;
+		fractol->minr = re_range + (fractol->minr - re_range) * 0.9;
+		fractol->mini = im_range + (fractol->mini - im_range) * 0.9;
+		fractol->maxr = re_range + (fractol->maxr - re_range) * 0.9;
+		fractol->maxi = im_range + (fractol->maxi - im_range) * 0.9;
+	}
+	if (keycode == MOUSE_DOWN)
+	{
+		fractol->minr = re_range + (fractol->minr - re_range) * 1.1;
+		fractol->mini = im_range + (fractol->mini - im_range) * 1.1;
+		fractol->maxr = re_range + (fractol->maxr - re_range) * 1.1;
+		fractol->maxi = im_range + (fractol->maxi - im_range) * 1.1;
+		fractol->itter -= 2;
+	}
+	clear_redraw(fractol);
+	return (0);
+}
+
 void	clear_redraw(t_vars *vars)
 {
-	ft_putstr_fd("dddd", 2);
 	mlx_destroy_image(vars->mlx, vars->img);
-	ft_putstr_fd("dddd", 2);
-	vars->img = mlx_new_image(vars->mlx, 500, 500);
+	ft_putstr_fd("destroy fait", 2);
+	vars->img = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
 	mlx_clear_window(vars->mlx, vars->win);
-	// put_squarre (vars);
-	// // if (vars->id == 2)
-	// // 	draw_julia(vars);
-	// // else if (vars->id == 1)
-	// // 	draw_mand(vars);
-	// // else if (vars->id == 3)
-	// // 	draw_burn(vars);
-	//mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
+	draw_julia (vars);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
+	ft_putstr_fd("nouvelle image", 2);
+
 }

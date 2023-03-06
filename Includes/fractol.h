@@ -7,16 +7,6 @@
 #include<unistd.h>
 #include <mlx.h>
 
-// typedef struct	s_data {
-// 	void	*img;
-// 	int	*addr;
-// 	int		bits_per_pixel;
-// 	int		line_length;
-// 	int		endian;
-// 	void	*mlx;
-// 	void	*win;
-// }				t_vars;
-
 typedef struct cor
 {
 	double	corx;
@@ -25,14 +15,12 @@ typedef struct cor
 
 typedef struct s_data
 {
-	int		i;
+	// int		i;
 	void	*mlx;
 	void	*win;
 	int		*addr;
-	int		x;
-	int		y;
-	int		width;
-	int		height;
+	// int		x;
+	// int		y;
 	void	*img;
 	int		bits_per_pixel;
 	int		endian;
@@ -44,7 +32,7 @@ typedef struct s_data
 	double	minr;
 	double	mini;
 	int		itter;
-	int		id;
+	// int		id;
 	t_cor	zoom;
 }	t_vars;
 
@@ -58,5 +46,6 @@ void	clear_redraw(t_vars *vars);
 void	ft_julia(t_vars *data);
 void	draw_julia(t_vars *fractol);
 int	itter(double cr, double ci, double max, t_vars *fra);
+int	zoom(int keycode, int x, int y, t_vars *fractol);
 
 #endif
