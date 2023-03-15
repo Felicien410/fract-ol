@@ -6,6 +6,7 @@ fractol 42 project
 Pour le lancer;
 
 1-> compiler le Makefile en utilisant la commande 'make'
+
 2-> lancer l'executable en mettant la fractal que vous voulez (ex ; ./fractol Julia)
 
 vous pouvez changer les valeurs de corx depuis le lancement du programme (ex ; ./fractol Julia 0.2 0.8)
