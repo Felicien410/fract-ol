@@ -1,6 +1,10 @@
 # fract-ol
 fractol 42 project
 
+![Screen Shot 2023-03-15 at 6 43 31 PM](https://user-images.githubusercontent.com/97636902/225397128-a8d1ec70-5116-49ea-9d90-af63eff4ebdf.png)
+
+
+
 Un ensemble de Julia est un type de fractale qui peut être représenté en utilisant une fonction mathématique simple, souvent sous la forme de z^2 + c. Cette fonction prend en entrée un nombre complexe z et un autre nombre complexe c, et renvoie un nouveau nombre complexe.
 
 L'ensemble de Julia est créé en itérant cette fonction à plusieurs reprises pour chaque point dans le plan complexe. Si le résultat de l'itération dépasse une certaine limite, on considère que le point appartient à l'ensemble de Julia. Sinon, il n'en fait pas partie. Les points qui appartiennent à l'ensemble sont colorés, tandis que les autres sont laissés en blanc.
